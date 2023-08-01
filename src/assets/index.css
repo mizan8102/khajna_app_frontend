@@ -1,0 +1,33 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* For webkit-based browsers (Chrome, Safari, etc.) */
+/* You can adjust the colors and dimensions to your preference */
+
+/* Change the thumb (draggable part) color */
+::-webkit-scrollbar-thumb {
+    background-color: rgb(15, 88, 205);
+}
+
+/* Change the track (the area behind the thumb) color */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+/* Change the corner where horizontal and vertical scrollbars meet */
+::-webkit-scrollbar-corner {
+    background-color: #f1f1f1;
+}
+
+/* Change the width of the scrollbar */
+/* You can also use 'height' to adjust the height of the horizontal scrollbar */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* For Firefox */
+/* Change the thumb and track color */
+/* The first color is for the thumb, and the second one is for the track */
+/* You can adjust the colors to your preference */
+scrollbar-color: #888 #f1f1f1;
