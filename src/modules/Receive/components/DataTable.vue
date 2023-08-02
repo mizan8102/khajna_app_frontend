@@ -24,7 +24,7 @@ setTimeout(() => {
     <div class="card !rounded-md shadow-3">
         <div class="flex justify-content-between flex-wrap card-container purple-container">
             <div class="flex align-items-center justify-content-center">
-                <Button label="Add New" @click="switchToCreate" class="p-2 pr-4 bg-blue-500 text-white" icon="pi pi-plus-circle" />
+                <Button label="Add New" @click="switchToCreate" class="p-2 pr-4 bg-primary text-white" icon="pi pi-plus-circle" />
             </div>
             <div class="flex align-items-center justify-content-center m-2">
                 <div class="flex">
@@ -49,7 +49,7 @@ setTimeout(() => {
         </div>
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs bg-blue-500 text-white text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs bg-primary text-white text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-2 py-2.5">SL</th>
 
@@ -74,7 +74,7 @@ setTimeout(() => {
                         <td class="px-2 py-2">CLN-23-0001</td>
                         <td class="px-2 py-2">23-04-2023</td>
                         <td class="px-2 py-2">
-                            <Button icon="pi pi-eye" class="bg-blue-500 mr-2 text-white shadow-lg" rounded aria-label="Filter" />
+                            <Button icon="pi pi-eye" class="bg-primary mr-2 text-white shadow-lg" rounded aria-label="Filter" />
                             <!-- <Button icon="pi pi-print" class="bg-gray-500 text-white shadow-xl" severity="secondary" rounded aria-label="Bookmark" /> -->
                         </td>
                     </tr>

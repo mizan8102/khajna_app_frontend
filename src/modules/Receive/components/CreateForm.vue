@@ -2,29 +2,23 @@
 import { useDraggable } from '@vueuse/core';
 import { computed, reactive, ref, watch, watchEffect } from 'vue';
 import LoadingText from '../../../components/loading/LoadingText.vue';
+import AppBreadcrumb from '../../../layout/AppBreadcrumb.vue';
 import { amount } from '../../../service/AmountServices';
-import { showNotification } from '../../../service/Notification';
 import ModalTable from '../components/modalTable.vue';
+import columns from '../utils/Colums';
+import FormService from '../utils/FormServices';
 const hideField = ref(true);
 const isLoading = ref(true);
 const visible = ref(false);
 
 const state = reactive({
     selectedRowKeys: [],
-    // Check here to configure the default column
     loading: false,
 });
 // dragable
-const open = ref(false);
 const modalTitleRef = ref(null);
-const showModal = () => {
-    open.value = true;
-};
 const { x, y, isDragging } = useDraggable(modalTitleRef);
-const handleOk = (e) => {
-    console.log(e);
-    open.value = false;
-};
+
 const startX = ref(0);
 const startY = ref(0);
 const startedDrag = ref(false);
@@ -105,20 +99,6 @@ const model = ref({
     ],
 });
 
-const addRow = () => {
-    const length_ar = model.value.item_row.length;
-    model.value.item_row.push({
-        key: 0 + length_ar,
-        item_info: '',
-        uom: '',
-        vat_structure_rate: '',
-        recv_qty: '',
-        recv_rate: '',
-        recv_amnt_trans_curr: 100,
-        total_amnt: 4000,
-        dutyDetails: '',
-    });
-};
 setTimeout(() => {
     isLoading.value = false;
 }, 2000);
@@ -130,72 +110,11 @@ const cities = ref([
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' },
 ]);
-const columns = ref([
-    {
-        title: 'Item Name',
-        dataIndex: 'item_info',
-        align: 'center',
-    },
-    {
-        title: 'UOM',
-        dataIndex: 'uom',
-        align: 'center',
-    },
-    {
-        title: 'Vat Structure Rate',
-        dataIndex: 'vat_structure_rate',
-        align: 'center',
-    },
-    {
-        title: 'Recv. Qty',
-        dataIndex: 'recv_qty',
-        align: 'center',
-    },
-    {
-        title: 'Recv. Rate',
-        dataIndex: 'recv_rate',
-        align: 'center',
-    },
-    {
-        title: 'Recv. Amnt. Trans. Curr.',
-        dataIndex: 'recv_amnt_trans_curr',
-        align: 'center',
-    },
-    {
-        title: 'Total Amount',
-        dataIndex: 'total_amnt',
-        align: 'center',
-    },
-    {
-        title: 'Duty',
-        dataIndex: 'dutyDetails',
-        align: 'center',
-    },
-]);
 
 // selection table rows
 const onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     state.selectedRowKeys = selectedRowKeys;
 };
-
-// delete selected table rows
-function deleteRow() {
-    if (state.selectedRowKeys.length < 1) {
-        showNotification('error', 'Firstly select row then delete');
-    } else {
-        const indicesToDelete = model.value.item_row.reduce((acc, item, index) => {
-            if (state.selectedRowKeys.includes(item.key)) {
-                acc.push(index);
-            }
-            return acc;
-        }, []);
-
-        indicesToDelete.reverse().forEach((index) => model.value.item_row.splice(index, 1));
-        state.selectedRowKeys = [];
-        console.log(model.value.item_row);
-    }
-}
 
 function uomset(e, record) {
     // record.item_info = 45;
@@ -284,15 +203,16 @@ const product_types = ref([
 </script>
 
 <template>
+    <AppBreadcrumb :items="FormService.items" />
     <LoadingText v-if="isLoading" />
 
     <div v-else class="grid fadein animation-duration-1000 animation-iteration">
         <div class="col-12 md:col-12">
             <div class="card shadow-2 p-fluid">
                 <div class="flex justify-content-between flex-wrap">
-                    <h5 class="text-blue-500">Local Purchase-Raw Materials</h5>
-
-                    <Button @click="hideField = !hideField" :icon="[hideField ? 'pi pi-angle-down' : 'pi pi-angle-up']" class="text-lg shadow-3 w-6rem" raised iconPos="right" :label="hideField ? 'Show' : 'hide'" aria-label="Cancel" />
+                    <!-- <h5 class="text-gray-500">LOCAL PURCHASE-RM</h5> -->
+                    <span></span>
+                    <Button @click="hideField = !hideField" :icon="[hideField ? 'pi pi-eye-slash' : 'pi pi-eye']" rounded class="text-sm shadow-3 w-6rem" raised iconPos="right" :label="hideField ? 'HIDE' : 'SHOW'" aria-label="Cancel" />
                 </div>
 
                 <div class="flex flex-row flex-wrap">
@@ -510,22 +430,22 @@ const product_types = ref([
                     </template>
                 </a-table>
                 <div class="flex flex-wrap gap-3 mb-2 mt-2">
-                    <Button icon="pi pi-plus" v-tooltip="'Add New'" @click="addRow" raised rounded />
+                    <Button icon="pi pi-plus" v-tooltip="'Add New'" @click="FormService.addRow(model.item_row)" raised rounded />
 
-                    <a-popconfirm title="Are you sure？" @confirm="deleteRow">
+                    <a-popconfirm title="Are you sure？" @confirm="FormService.deleteRow(state, model.item_row)">
                         <template #icon><question-circle-outlined style="color: red" /></template>
                         <Button v-tooltip="'Firstly select then click '" icon="pi pi-trash" severity="danger" rounded aria-label="Cancel" />
                     </a-popconfirm>
                 </div>
             </div>
         </div>
-        
-    </div><div v-if="!isLoading" class="flex justify-content-end flex-wrap">
-            <Button label="Close" class="mr-2" severity="danger" raised />
-            <Button label="Reset" class="mr-2" severity="help" raised />
-            <Button label="Draft" class="mr-2" severity="success" raised />
-            <Button label="Save" class="mr-2" raised />
-        </div>
+    </div>
+    <div v-if="!isLoading" class="flex justify-content-end flex-wrap">
+        <Button label="Close" class="mr-2" severity="danger" raised />
+        <Button label="Reset" class="mr-2" severity="help" raised />
+        <Button label="Draft" class="mr-2" severity="success" raised />
+        <Button label="Save" class="mr-2" raised />
+    </div>
 
     <!-- modal  -->
     <a-modal ref="modalRef" v-if="visible" v-model:visible="visible" :footer="null">

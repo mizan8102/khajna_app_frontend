@@ -31,6 +31,7 @@ watch(layoutConfig.menuMode, (newVal) => {
     if (newVal === 'static') {
         layoutState.staticMenuDesktopInactive.value = false;
     }
+    localStorage.setItem('menuMode_khajna', newVal);
 });
 
 const colorScheme = ref(layoutConfig.colorScheme.value);
@@ -82,17 +83,25 @@ const replaceLink = (linkElement, href, onComplete) => {
     });
 };
 const decrementScale = () => {
-    setScale(layoutConfig.scale.value - 1);
+    let dec = layoutConfig.scale.value - 1;
+    setScale(dec);
     applyScale();
+    localStorage.setItem('setFrontSize', dec);
 };
 const incrementScale = () => {
-    setScale(layoutConfig.scale.value + 1);
+    let inc = layoutConfig.scale.value + 1;
+    setScale(inc);
     applyScale();
+    localStorage.setItem('setFrontSize', inc);
 };
 
 const applyScale = () => {
     document.documentElement.style.fontSize = layoutConfig.scale.value + 'px';
 };
+
+if (localStorage.getItem('setFrontSize')) {
+    applyScale();
+}
 
 const onChangeRipple = () => {
     PrimeVue.config.ripple = !PrimeVue.config.ripple;
@@ -179,21 +188,21 @@ if (localStorage.getItem('app_color_mode')) {
                     <label for="mode7">Drawer</label>
                 </div>
             </div>
-            <h5>Color Scheme</h5>
+            <!-- <h5>Color Scheme</h5>
 
             <div class="field-radiobutton">
                 <RadioButton name="colorScheme" value="light" v-model="colorScheme" id="theme3" @change="changeColorScheme('light')"></RadioButton>
                 <label for="theme3">Light</label>
             </div>
-            <div class="field-radiobutton">
+             <div class="field-radiobutton">
                 <RadioButton name="colorScheme" value="dark" v-model="colorScheme" id="theme1" @change="changeColorScheme('dark')"></RadioButton>
                 <label for="theme1">Dark</label>
-            </div>
+            </div> -->
         </template>
 
-        <template v-if="!simple">
+        <!-- <template v-if="!simple">
             <h5>Ripple Effect</h5>
             <InputSwitch v-model="layoutConfig.ripple.value" @change="onChangeRipple"></InputSwitch>
-        </template>
+        </template> -->
     </Sidebar>
 </template>

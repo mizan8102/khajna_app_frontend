@@ -1,10 +1,10 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
 import { ref } from 'vue';
-import AppSidebar from './AppSidebar.vue';
 import { useRouter } from 'vue-router';
+import Preloading from '../components/loading/Preloading.vue';
 import { useTaskStore } from '../store';
-import Preloading from '../components/loading/Preloading.vue'
+import AppSidebar from './AppSidebar.vue';
 const { onMenuToggle, showConfigSidebar, showSidebar } = useLayout();
 const searchInput = ref(null);
 const searchActive = ref(false);
@@ -37,25 +37,26 @@ const onConfigButtonClick = () => {
 const onSidebarButtonClick = () => {
     showSidebar();
 };
-const isLoading=ref(false)
+const isLoading = ref(false);
 const logout = () => {
-    isLoading.value=true;
+    isLoading.value = true;
     taskStore
         .logout()
         .then((result) => {
             router.push({ name: 'login' });
-            isLoading.value=false;
+            isLoading.value = false;
         })
         .catch((err) => {
             console.log(err);
-            isLoading.value=false;
+            isLoading.value = false;
         });
 };
 </script>
 <template>
     <preloading v-if="isLoading"></preloading>
     <div class="layout-topbar">
-        <div class="topbar-start w-full flex justify-content-between flex-wrap shadow-2 p-3 border-round mt-3" :class="[layoutConfig.colorScheme.value == 'dark' ? 'bg-gray-800' : 'bg-white']" style="position: fixed !important">
+        <!-- :class="[layoutConfig.colorScheme.value == 'dark' ? 'bg-gray-800' : 'bg-white']" -->
+        <div :class="[layoutConfig.menuMode.value == 'horizontal' ? 'md:hidden flex' : 'flex']" class="bg-white topbar-start w-full justify-content-between flex-wrap shadow-2 p-3 border-round mt-3" style="position: fixed !important">
             <Button ref="menubutton" type="button" class="flex align-items-center justify-content-center topbar-menubutton p-link p-trigger" @click="onMenuButtonClick()">
                 <i class="pi pi-bars"></i>
             </Button>
@@ -140,7 +141,7 @@ const logout = () => {
         <!-- <div class="topbar-end"></div> -->
 
         <div class="layout-topbar-menu-section">
-            <AppSidebar />
+            <AppSidebar class="bg-transparent shadow-3" />
         </div>
     </div>
 </template>

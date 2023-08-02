@@ -20,6 +20,11 @@ const routes = [
                 component: () => import('@/views/dashboards/Ecommerce.vue'),
             },
             {
+                path: '/:pathMatch(.*)',
+                name: 'notfound',
+                component: () => import('@/views/pages/NotFound.vue'),
+            },
+            {
                 path: '/apps/blog/list',
                 component: () => import('@/views/apps/blog/List.vue'),
             },
@@ -408,11 +413,7 @@ const routes = [
         name: 'landing',
         component: () => import('@/views/pages/Landing.vue'),
     },
-    {
-        path: '/pages/notfound',
-        name: 'notfound',
-        component: () => import('@/views/pages/NotFound.vue'),
-    },
+   
 
     {
         path: '/auth/login',

@@ -8,6 +8,10 @@ export const useTaskStore = defineStore('taskStore', {
             token: localStorage.getItem('4628382to843ken983478382398428'),
             loading: false,
         },
+        appMenuItem: {
+            data: [],
+            loading: false,
+        },
     }),
 
     actions: {
@@ -34,6 +38,19 @@ export const useTaskStore = defineStore('taskStore', {
                 localStorage.removeItem('4628382to843ken983478382398428');
                 return response;
             });
+        },
+        async app_menu_retrive() {
+            this.appMenuItem.loading = true;
+            return await axiosClient
+                .get('/menu')
+                .then((result) => {
+                    this.appMenuItem.loading = false;
+                    this.appMenuItem.data = result.data.data;
+                })
+                .catch((err) => {
+                    this.appMenuItem.loading = false;
+                    throw err;
+                });
         },
     },
 });

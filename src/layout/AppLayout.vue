@@ -1,12 +1,14 @@
 <script setup>
 import { useLayout } from '@/layout/composables/layout';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
-import AppBreadCrumb from './AppBreadcrumb.vue';
+import Preloading from '../components/loading/Preloading.vue';
+import { useTaskStore } from '../store';
 import AppConfig from './AppConfig.vue';
 import AppProfileMenu from './AppProfileMenu.vue';
 import AppTopbar from './AppTopbar.vue';
 const { layoutConfig, layoutState, isSidebarActive } = useLayout();
-
+const store = useTaskStore();
+const loading = store.appMenuItem.loading;
 const outsideClickListener = ref(null);
 const topbarRef = ref(null);
 
@@ -73,12 +75,13 @@ const isOutsideClicked = (event) => {
 };
 </script>
 <template>
-    <div class="layout-container" :class="containerClass">
+    <Preloading v-if="loading" />
+    <div v-else class="layout-container" :class="containerClass">
         <div class="layout-content-wrapper">
             <AppTopbar ref="topbarRef" />
 
-            <AppBreadCrumb class="content-breadcrumb" />
             <div class="layout-content">
+                <!-- <AppBreadCrumb class="content-breadcrumb" /> -->
                 <router-view></router-view>
             </div>
 

@@ -1,11 +1,11 @@
-import { toRefs, reactive, computed } from 'vue';
+import { computed, reactive, toRefs } from 'vue';
 
 const layoutConfig = reactive({
     ripple: false,
-    menuMode: 'static',
+    menuMode: localStorage.getItem('menuMode_khajna') ? localStorage.getItem('menuMode_khajna') : 'static',
     colorScheme: 'dark',
     theme: 'blue',
-    scale: 14,
+    scale: localStorage.getItem('setFrontSize') ? parseInt(localStorage.getItem('setFrontSize')) : 13,
 });
 
 const layoutState = reactive({

@@ -28,7 +28,10 @@ const onMouseLeave = () => {
 
 const anchor = () => {
     layoutState.anchored.value = !layoutState.anchored.value;
+    // localStorage.setItem('drawer_anchor', layoutState.anchored.value);
 };
+
+
 const navigateToHome = () => {
     router.push('/');
 };
@@ -36,17 +39,17 @@ const navigateToHome = () => {
 
 <template>
     <div class="layout-sidebar" @mouseenter="onMouseEnter()" @mouseleave="onMouseLeave()">
-        <div class="sidebar-header shadow-2 border-round-right" :class="[layoutConfig.colorScheme.value == 'dark' ? 'bg-gray-800' : 'bg-white']">
-            <a @click="navigateToHome" class="app-logo ml-4" style="cursor: pointer">
-                <div class="app-logo-small h-2rem">
+        <div class="sidebar-header" :class="[layoutConfig.colorScheme.value == 'dark' ? 'bg-gray-800' : '']">
+            <a @click="navigateToHome" class="app-logo" style="cursor: pointer">
+                <div class="app-logo-small h-4rem">
                     <img :src="'./layout/images/logo/logo-' + (layoutConfig.colorScheme.value === 'light' ? 'dark' : 'light') + '.png'" />
                 </div>
                 <div class="app-logo-normal">
-                    <img class="h-2rem" :src="'./layout/images/logo/logo-' + (layoutConfig.colorScheme.value === 'light' ? 'dark' : 'light') + '.png'" />
+                    <img class="h-4rem" :src="'./layout/images/logo/logo-' + (layoutConfig.colorScheme.value === 'light' ? 'dark' : 'light') + '.png'" />
                     <!-- <img class="h-2rem ml-3" :src="'./layout/images/logo/appname-' + (layoutConfig.colorScheme.value === 'light' ? 'dark' : 'light') + '.png'" />  -->
                 </div>
             </a>
-            <Button class="layout-sidebar-anchor p-link z-2- mb-3" type="button" @click="anchor()"></Button>
+            <Button class="layout-sidebar-anchor border-round p-link z-2-" type="button" @click="anchor()"></Button>
         </div>
 
         <div class="layout-menu-container">
