@@ -18,6 +18,6 @@ const props = defineProps({
 
 <template>
     <div class="layout-breadcrumb m-0 p-0 mb-3 flex align-items-center relative h-3rem mt-8 md:mt-7">
-        <Breadcrumb :home="home" class="w-full p-3 bg-white shadow-2" :model="items" />
+        <Breadcrumb :home="home" class="w-full p-3 bg-white shadow-1 border-none" :model="items" />
     </div>
 </template>

@@ -2,7 +2,7 @@
 import { CustomerService } from '@/service/CustomerService';
 import { ref, onMounted, reactive, watch } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
-
+import AppBreadcrumb from '../../layout/AppBreadcrumb.vue';
 const { layoutConfig } = useLayout();
 const customersTable = ref(null);
 const customersTable1 = ref(null);
@@ -530,9 +530,15 @@ const formatDate = (value) => {
 const formatCurrency = (value) => {
     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
+const items = ref([
+    { label: 'Local Purchase-RM', to: '/receive/home' },
+    { label: 'Home Index', to: '/receive/home' },
+]);
 </script>
 
 <template>
+    <app-breadcrumb :items="items"></app-breadcrumb>
+
     <div class="grid">
         <div class="col-12 md:col-4">
             <div class="card relative h-6rem border-round-xl p-3">
