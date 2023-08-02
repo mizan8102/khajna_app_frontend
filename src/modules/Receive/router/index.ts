@@ -9,4 +9,9 @@ export default [
         name: 'receive.home',
         component: () => import('../views/HomePage.vue'),
     },
+    {
+        path: '/receive/import-home',
+        name: 'receive.import-home',
+        component: () => import('../views/ImportHomePage.vue'),
+    },
 ];

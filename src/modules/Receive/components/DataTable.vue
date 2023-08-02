@@ -28,7 +28,9 @@ setTimeout(() => {
             </div>
             <div class="flex align-items-center justify-content-center m-2">
                 <div class="flex">
-                    <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select Supplier" class="w-full md:w-14rem" />
+                    <Dropdown v-model="selectedCity" filter :options="cities" optionLabel="name" placeholder="Select Supplier" class="w-full md:w-14rem" />
+
+                    <!-- <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name"  /> -->
                     <div class="relative ml-4">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-6 h-6 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -50,10 +52,11 @@ setTimeout(() => {
                 <thead class="text-xs bg-blue-500 text-white text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-2 py-2.5">SL</th>
-                        <th scope="col" class="px-2 py-2.5">Product Type</th>
-                        <th scope="col" class="px-2 py-2">Supplier Name</th>
+
                         <th scope="col" class="px-2 py-2">GRN No</th>
                         <th scope="col" class="px-2 py-2">GRN Date</th>
+                        <th scope="col" class="px-2 py-2.5">Product Type</th>
+                        <th scope="col" class="px-2 py-2">Supplier Name</th>
                         <th scope="col" class="px-2 py-2">Challan Type</th>
                         <th scope="col" class="px-2 py-2">Challan No</th>
                         <th scope="col" class="px-2 py-2">Challan Date</th>
@@ -63,16 +66,16 @@ setTimeout(() => {
                 <tbody v-if="!isLoading">
                     <tr v-for="i in 10" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-2 py-2">{{ i }}</td>
-                        <td class="px-2 py-2">Raw Materials</td>
-                        <td class="px-2 py-2">Rahim Verities Store</td>
                         <td class="px-2 py-2">GRN-23-00002</td>
                         <td class="px-2 py-2">23-03-2023</td>
+                        <td class="px-2 py-2">Raw Materials</td>
+                        <td class="px-2 py-2">Rahim Verities Store</td>
                         <td class="px-2 py-2">Vat Challan</td>
                         <td class="px-2 py-2">CLN-23-0001</td>
                         <td class="px-2 py-2">23-04-2023</td>
                         <td class="px-2 py-2">
                             <Button icon="pi pi-eye" class="bg-blue-500 mr-2 text-white shadow-lg" rounded aria-label="Filter" />
-                            <Button icon="pi pi-print" class="bg-gray-500 text-white shadow-xl" severity="secondary" rounded aria-label="Bookmark" />
+                            <!-- <Button icon="pi pi-print" class="bg-gray-500 text-white shadow-xl" severity="secondary" rounded aria-label="Bookmark" /> -->
                         </td>
                     </tr>
                 </tbody>

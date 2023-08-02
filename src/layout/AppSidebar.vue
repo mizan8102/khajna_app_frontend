@@ -36,7 +36,7 @@ const navigateToHome = () => {
 
 <template>
     <div class="layout-sidebar" @mouseenter="onMouseEnter()" @mouseleave="onMouseLeave()">
-        <div class="sidebar-header shadow-2" :class="[layoutConfig.colorScheme.value == 'dark' ? 'bg-gray-800' : 'bg-white']">
+        <div class="sidebar-header shadow-2 border-round-right" :class="[layoutConfig.colorScheme.value == 'dark' ? 'bg-gray-800' : 'bg-white']">
             <a @click="navigateToHome" class="app-logo ml-4" style="cursor: pointer">
                 <div class="app-logo-small h-2rem">
                     <img :src="'./layout/images/logo/logo-' + (layoutConfig.colorScheme.value === 'light' ? 'dark' : 'light') + '.png'" />
@@ -46,7 +46,7 @@ const navigateToHome = () => {
                     <!-- <img class="h-2rem ml-3" :src="'./layout/images/logo/appname-' + (layoutConfig.colorScheme.value === 'light' ? 'dark' : 'light') + '.png'" />  -->
                 </div>
             </a>
-            <Button class="layout-sidebar-anchor p-link z-2" type="button" @click="anchor()"></Button>
+            <Button class="layout-sidebar-anchor p-link z-2- mb-3" type="button" @click="anchor()"></Button>
         </div>
 
         <div class="layout-menu-container">
